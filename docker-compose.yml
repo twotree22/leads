@@ -1,0 +1,17 @@
+services:
+  leads:
+    image: leads:latest
+    build:
+      context: .
+    container_name: leads
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      NEXT_TELEMETRY_DISABLED: "1"
+      CRM_WEBHOOK_URL: ${CRM_WEBHOOK_URL:-}
+      TWILIO_ACCOUNT_SID: ${TWILIO_ACCOUNT_SID:-}
+      TWILIO_AUTH_TOKEN: ${TWILIO_AUTH_TOKEN:-}
+      TWILIO_FROM_NUMBER: ${TWILIO_FROM_NUMBER:-}
+      LEAD_SMS_TO: ${LEAD_SMS_TO:-}
+      LEAD_CALL_TO: ${LEAD_CALL_TO:-}
