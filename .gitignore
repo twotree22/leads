@@ -3,3 +3,6 @@
 .next
 node_modules
 npm-debug.log*
+
+# Windows/WSL alternate-data-stream artifacts
+*:Zone.Identifier
