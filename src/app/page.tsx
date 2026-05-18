@@ -1,4 +1,5 @@
 import LeadForm from "./LeadForm";
+import LogoMarquee from "../components/LogoMarquee";
 
 const phoneDisplay = "1-850-977-9719";
 const phoneHref = "tel:18509779719";
@@ -98,9 +99,11 @@ export default function Home() {
         <div className="absolute inset-x-0 top-0 h-2 bg-sage-500" />
         <div className="mx-auto flex max-w-6xl flex-col gap-10 px-5 pb-12 pt-10 sm:px-8 lg:grid lg:min-h-[720px] lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14 lg:py-16">
           <div>
-            <div className="mb-8 inline-flex rounded-full border border-sage-100 bg-sage-50 px-4 py-2 text-base font-semibold text-sage-700">
+            <div className="mb-5 inline-flex rounded-full border border-sage-100 bg-sage-50 px-4 py-2 text-base font-semibold text-sage-700">
               Final expense life insurance support
             </div>
+
+            <LogoMarquee className="mb-7" />
 
             <h1 className="max-w-3xl text-5xl font-extrabold leading-[1.05] tracking-normal text-navy-950 sm:text-6xl lg:text-7xl">
               Affordable Final Expense Coverage
