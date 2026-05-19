@@ -880,6 +880,16 @@ details p {
   transform: translateY(0);
 }
 
+.sticky-phone-icon {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
 @media (max-width: 980px) {
   .nav-links {
     display: none;
@@ -983,11 +993,16 @@ details p {
     height: calc(72px + env(safe-area-inset-bottom));
     min-height: 72px;
     padding: 0 20px env(safe-area-inset-bottom);
+    color: #f4fffb;
+    background: linear-gradient(135deg, #123d3b, #1f6f63 58%, #3f8f5d);
+    border-color: #1f6f63;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -14px 30px rgba(18, 61, 59, 0.28);
+    font-size: 1.28rem;
     line-height: 1;
     border-right: 0;
     border-bottom: 0;
     border-left: 0;
-    border-radius: 0;
     transform: translateY(100%);
   }
 }
