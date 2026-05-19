@@ -1,63 +1,67 @@
 import LeadForm from "./LeadForm";
-import LogoMarquee from "../components/LogoMarquee";
+import CoverageEstimator from "./CoverageEstimator";
+import StickyCall from "./StickyCall";
 
 const phoneDisplay = "1-850-977-9719";
-const phoneHref = "tel:18509779719";
+const phoneHref = "tel:+18509779719";
 
-const benefits = [
+const trustItems = [
   {
-    title: "Help Protect Loved Ones",
-    description:
-      "Explore coverage options designed to help reduce the financial burden of funeral, burial, and final expenses.",
+    title: "Licensed agents",
+    description: "Clear final-expense options explained by phone",
   },
   {
-    title: "Affordable Monthly Options",
-    description:
-      "Talk through budget-conscious choices with an agent who can explain available options in clear terms.",
+    title: "No pressure",
+    description: "A simple consultation with no obligation to enroll",
   },
   {
-    title: "Simple Phone Consultation",
-    description:
-      "Get helpful answers by phone without complicated forms or a long online process.",
+    title: "Coverage varies",
+    description: "Options depend on state, age, and eligibility requirements",
+  },
+  {
+    title: "Fast phone help",
+    description: "Call now or request a callback from an agent",
   },
 ];
 
-const trustPoints = [
-  "Licensed agents",
-  "Clear coverage options",
-  "No pressure consultation",
-  "Fast phone support",
-];
-
-const topTrustPoints = [
-  "Licensed agent support",
-  "Simple phone consultation",
-  "No obligation to enroll",
-  "Coverage varies by state",
+const reasons = [
+  {
+    title: "Affordable monthly options",
+    description: "Budget-conscious choices are discussed in clear, non-pressuring terms.",
+  },
+  {
+    title: "Final expenses",
+    description: "Funeral, burial, medical bills, and unpaid debt are made concrete.",
+  },
+  {
+    title: "Phone-first guidance",
+    description: "The call path stays prominent for visitors who do not want a long form.",
+  },
+  {
+    title: "Clear limits",
+    description: "Coverage is not guaranteed and availability varies by state and eligibility.",
+  },
 ];
 
 const steps = [
   {
-    label: "Step 1",
-    title: "Call Today",
-    description:
-      "Tap the call button and connect with support during available phone hours.",
+    label: "01",
+    title: "Call today",
+    description: "Tap the call button and connect with an agent during available phone hours.",
   },
   {
-    label: "Step 2",
-    title: "Speak With a Licensed Agent",
-    description:
-      "Share your needs and questions with someone who can explain final expense coverage options.",
+    label: "02",
+    title: "Speak with a licensed agent",
+    description: "Share your needs and questions with someone who can explain options.",
   },
   {
-    label: "Step 3",
-    title: "Review Available Options",
-    description:
-      "Compare choices that may fit your goals, budget, and family priorities.",
+    label: "03",
+    title: "Review available options",
+    description: "Compare choices that may fit your goals, budget, and family priorities.",
   },
 ];
 
-const faqItems = [
+const faqs = [
   {
     question: "What is final expense coverage?",
     answer:
@@ -80,259 +84,274 @@ const faqItems = [
   },
 ];
 
-function CallButton({ className = "" }: { className?: string }) {
+function PhoneIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className="icon">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.35 1.89.66 2.78a2 2 0 0 1-.45 2.11L8.09 9.84a16 16 0 0 0 6.07 6.07l1.23-1.23a2 2 0 0 1 2.11-.45c.89.31 1.82.53 2.78.66A2 2 0 0 1 22 16.92Z" />
+    </svg>
+  );
+}
+
+function TreeIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className="brand-icon">
+      <path d="M12 3 8.4 8.7h2.1L7 14.4h3.2L7.7 19h8.6L13.8 14.4H17l-3.5-5.7h2.1L12 3Z" />
+      <path d="M12 18v4" />
+    </svg>
+  );
+}
+
+function CallButton({ secondary = false }: { secondary?: boolean }) {
   return (
     <a
       href={phoneHref}
-      className={`inline-flex min-h-16 w-full items-center justify-center rounded-2xl bg-sage-600 px-8 py-4 text-center text-xl font-bold text-white shadow-soft transition hover:bg-sage-700 focus:outline-none focus:ring-4 focus:ring-sage-200 sm:w-auto ${className}`}
+      className={secondary ? "btn btn-secondary" : "btn btn-primary"}
+      data-event="call_click"
       aria-label={`Call now at ${phoneDisplay}`}
     >
-      Call Now
+      <PhoneIcon />
+      Call now
     </a>
   );
 }
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-slate-50 pb-24 text-navy-950 sm:pb-0">
-      <section className="relative overflow-hidden bg-white">
-        <div className="absolute inset-x-0 top-0 h-2 bg-sage-500" />
-        <div className="mx-auto flex max-w-6xl flex-col gap-10 px-5 pb-12 pt-10 sm:px-8 lg:grid lg:min-h-[720px] lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14 lg:py-16">
-          <div>
-            <div className="mb-5 inline-flex rounded-full border border-sage-100 bg-sage-50 px-4 py-2 text-base font-semibold text-sage-700">
-              Final expense life insurance support
-            </div>
+    <>
+      <header className="site-header">
+        <a className="brand" href="#top" aria-label="TwoTree Quote home">
+          <span className="brand-mark">
+            <TreeIcon />
+          </span>
+          <span>
+            <strong>TwoTree</strong>
+            <small>Quote</small>
+          </span>
+        </a>
+        <nav className="nav-links" aria-label="Primary navigation">
+          <a href="#coverage">Why call</a>
+          <a href="#how">How it works</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+        <a className="header-call" href={phoneHref} data-event="call_click">
+          <PhoneIcon />
+          <span>{phoneDisplay}</span>
+        </a>
+      </header>
 
-            <LogoMarquee className="mb-7" />
-
-            <h1 className="max-w-3xl text-5xl font-extrabold leading-[1.05] tracking-normal text-navy-950 sm:text-6xl lg:text-7xl">
-              Affordable Final Expense Coverage
-            </h1>
-
-            <p className="mt-6 max-w-2xl text-xl leading-8 text-slate-700 sm:text-2xl sm:leading-9">
-              Speak with a licensed agent today about options that may help
-              cover funeral, burial, and final expenses.
-            </p>
-
-            <div className="mt-8 max-w-sm sm:max-w-none">
-              <CallButton />
-              <p className="mt-4 text-lg font-medium text-slate-600">
-                No obligation. Simple phone consultation.
+      <main id="top">
+        <section className="hero" aria-labelledby="hero-title">
+          <div className="hero-media" aria-hidden="true" />
+          <div className="hero-overlay" aria-hidden="true" />
+          <div className="hero-inner">
+            <div className="hero-copy">
+              <p className="eyebrow">
+                <span />
+                Final expense life insurance guidance
               </p>
+              <h1 id="hero-title">Affordable Final Expense Coverage</h1>
+              <p className="hero-subhead">
+                Speak with a licensed agent today about options that may help cover
+                funeral, burial, medical, and other final expenses.
+              </p>
+              <div className="hero-actions" aria-label="Primary actions">
+                <CallButton />
+                <a className="btn btn-secondary" href="#quote" data-event="quote_start">
+                  Request a callback
+                </a>
+              </div>
+              <div className="proof-row" aria-label="Trust proof">
+                <span>
+                  <strong>No</strong> obligation
+                </span>
+                <span>
+                  <strong>Simple</strong> phone consultation
+                </span>
+                <span>
+                  <strong>Licensed</strong> agents
+                </span>
+              </div>
             </div>
 
             <LeadForm />
           </div>
+        </section>
 
-          <div className="rounded-3xl border border-slate-200 bg-navy-900 p-6 text-white shadow-soft sm:p-8">
-            <div className="rounded-2xl bg-white p-6 text-navy-950 sm:p-8">
-              <p className="text-lg font-semibold text-sage-700">
-                Call a licensed agent
-              </p>
-              <p className="mt-3 text-4xl font-extrabold tracking-normal sm:text-5xl">
-                {phoneDisplay}
-              </p>
-              <p className="mt-5 text-lg leading-7 text-slate-700">
-                Get straightforward help reviewing final expense options by
-                phone. No pressure and no complicated online process.
-              </p>
-              <div className="mt-7">
-                <CallButton />
-              </div>
-            </div>
-
-            <div className="mt-6 grid gap-3 text-lg font-semibold sm:grid-cols-2">
-              {trustPoints.map((point) => (
-                <div
-                  key={point}
-                  className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3"
-                >
-                  {point}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="border-y border-slate-200 bg-slate-50 px-5 py-5 sm:px-8">
-        <div className="mx-auto grid max-w-6xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {topTrustPoints.map((point) => (
-            <div
-              key={point}
-              className="rounded-2xl bg-white px-5 py-4 text-lg font-bold text-navy-950 shadow-sm"
-            >
-              <span className="mb-3 block h-2 w-12 rounded-full bg-sage-500" />
-              {point}
+        <section className="trust-band" aria-label="Trust signals">
+          {trustItems.map((item) => (
+            <div className="trust-item" key={item.title}>
+              <strong>{item.title}</strong>
+              <span>{item.description}</span>
             </div>
           ))}
-        </div>
-      </section>
+        </section>
 
-      <section className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
-        <div className="max-w-3xl">
-          <p className="text-lg font-bold text-sage-700">Why people call</p>
-          <h2 className="mt-3 text-4xl font-extrabold leading-tight tracking-normal text-navy-950 sm:text-5xl">
-            Guidance for families planning ahead.
-          </h2>
-        </div>
-
-        <div className="mt-9 grid gap-5 md:grid-cols-3">
-          {benefits.map((benefit) => (
-            <article
-              key={benefit.title}
-              className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft sm:p-8"
-            >
-              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-sage-100 text-2xl font-extrabold text-sage-700">
-                OK
+        <section className="two-tree-method" aria-labelledby="method-title">
+          <div className="section-heading">
+            <p className="section-kicker">Two ways to get help</p>
+            <h2 id="method-title">Call now, or request a callback.</h2>
+            <p>
+              TwoTree Quote keeps the process simple for final-expense shoppers:
+              connect by phone when you are ready, or leave a short request if you
+              prefer a follow-up.
+            </p>
+          </div>
+          <div className="method-grid">
+            <article>
+              <div className="tree-icon" aria-hidden="true">
+                <PhoneIcon />
               </div>
-              <h3 className="text-2xl font-bold tracking-normal text-navy-950">
-                {benefit.title}
-              </h3>
-              <p className="mt-4 text-lg leading-8 text-slate-700">
-                {benefit.description}
+              <h3>Call now</h3>
+              <p>
+                The fastest path for people who want straightforward help reviewing
+                final-expense options by phone.
               </p>
             </article>
-          ))}
-        </div>
-      </section>
+            <article>
+              <div className="tree-icon" aria-hidden="true">
+                <TreeIcon />
+              </div>
+              <h3>Request a callback</h3>
+              <p>
+                A short secondary path for visitors who want an agent to follow up at
+                a better time.
+              </p>
+            </article>
+          </div>
+        </section>
 
-      <section className="bg-white px-5 py-14 sm:px-8 sm:py-20">
-        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+        <section className="section product-section" id="coverage">
+          <div className="section-heading">
+            <p className="section-kicker">Why people call</p>
+            <h2>Guidance for families planning ahead</h2>
+            <p>
+              The message stays focused on family burden reduction, affordability,
+              and plain-language phone guidance.
+            </p>
+          </div>
+          <div className="segment-panel">
+            <div>
+              <p className="section-kicker">Help protect loved ones</p>
+              <h3>Options that may help cover funeral, burial, and final expenses</h3>
+              <p>
+                Explore coverage designed to help reduce the financial burden of
+                common end-of-life costs.
+              </p>
+            </div>
+            <ul>
+              <li>Primary CTA: Call now</li>
+              <li>Secondary path: short callback request</li>
+              <li>Trust cue: licensed agents</li>
+            </ul>
+          </div>
+        </section>
+
+        <section className="split-section problem-section">
           <div>
-            <p className="text-lg font-bold text-sage-700">
-              Planning with less confusion
-            </p>
-            <h2 className="mt-3 text-4xl font-extrabold leading-tight tracking-normal text-navy-950 sm:text-5xl">
-              A clear conversation can help your family prepare.
-            </h2>
-          </div>
-          <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-soft sm:p-8">
-            <p className="text-xl leading-8 text-slate-700">
-              Many people delay final expense planning because they are unsure
-              what coverage may cost or which option fits. The next step is
-              simple: call, speak with a licensed agent, and review available
-              options in plain language.
+            <p className="section-kicker">Planning with less confusion</p>
+            <h2>A clear conversation can help your family prepare.</h2>
+            <p>
+              Many people delay final-expense planning because they are unsure what
+              coverage may cost or which option fits. The next step is simple: call,
+              speak with a licensed agent, and review available options in plain language.
             </p>
           </div>
-        </div>
-      </section>
-
-      <section className="bg-navy-900 px-5 py-14 text-white sm:px-8 sm:py-18">
-        <div className="mx-auto max-w-6xl">
-          <div className="max-w-3xl">
-            <p className="text-lg font-bold text-sage-100">Trust and clarity</p>
-            <h2 className="mt-3 text-4xl font-extrabold leading-tight tracking-normal sm:text-5xl">
-              A calm phone conversation with clear next steps.
-            </h2>
-          </div>
-
-          <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {trustPoints.map((point) => (
-              <div
-                key={point}
-                className="rounded-3xl border border-white/10 bg-white/10 p-5 text-xl font-bold"
-              >
-                <span className="mb-4 block h-2 w-16 rounded-full bg-sage-200" />
-                {point}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
-        <div className="max-w-3xl">
-          <p className="text-lg font-bold text-sage-700">How it works</p>
-          <h2 className="mt-3 text-4xl font-extrabold leading-tight tracking-normal text-navy-950 sm:text-5xl">
-            Start with one simple call.
-          </h2>
-        </div>
-
-        <div className="mt-9 grid gap-5 lg:grid-cols-3">
-          {steps.map((step) => (
-            <article
-              key={step.title}
-              className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft sm:p-8"
-            >
-              <p className="text-lg font-bold text-sage-700">{step.label}</p>
-              <h3 className="mt-3 text-2xl font-bold tracking-normal text-navy-950">
-                {step.title}
-              </h3>
-              <p className="mt-4 text-lg leading-8 text-slate-700">
-                {step.description}
-              </p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="bg-slate-50 px-5 py-14 sm:px-8 sm:py-20">
-        <div className="mx-auto max-w-6xl">
-          <div className="max-w-3xl">
-            <p className="text-lg font-bold text-sage-700">
-              Common questions
-            </p>
-            <h2 className="mt-3 text-4xl font-extrabold leading-tight tracking-normal text-navy-950 sm:text-5xl">
-              Straight answers before you call.
-            </h2>
-          </div>
-
-          <div className="mt-9 grid gap-4 lg:grid-cols-2">
-            {faqItems.map((item) => (
-              <article
-                key={item.question}
-                className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft sm:p-8"
-              >
-                <h3 className="text-2xl font-bold tracking-normal text-navy-950">
-                  {item.question}
-                </h3>
-                <p className="mt-4 text-lg leading-8 text-slate-700">
-                  {item.answer}
-                </p>
+          <div className="reason-grid" aria-label="Buyer concerns">
+            {reasons.map((reason) => (
+              <article key={reason.title}>
+                <h3>{reason.title}</h3>
+                <p>{reason.description}</p>
               </article>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="bg-white px-5 py-14 sm:px-8 sm:py-20">
-        <div className="mx-auto max-w-4xl rounded-3xl border border-slate-200 bg-sage-50 p-7 text-center shadow-soft sm:p-12">
-          <h2 className="text-4xl font-extrabold leading-tight tracking-normal text-navy-950 sm:text-5xl">
-            Get Help Understanding Your Final Expense Options
-          </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-xl leading-8 text-slate-700">
-            Call today to speak with a licensed agent about options that may
-            help your family plan for final expenses.
-          </p>
-          <div className="mx-auto mt-8 max-w-sm">
-            <CallButton />
+        <section className="section process-section" id="how">
+          <div className="section-heading">
+            <p className="section-kicker">How it works</p>
+            <h2>Start with one simple call</h2>
           </div>
+          <div className="process-grid">
+            {steps.map((step) => (
+              <article key={step.title}>
+                <span>{step.label}</span>
+                <h3>{step.title}</h3>
+                <p>{step.description}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <CoverageEstimator />
+
+        <section className="section faq-section" id="faq">
+          <div className="section-heading">
+            <p className="section-kicker">Common questions</p>
+            <h2>Straight answers before you call</h2>
+          </div>
+          <div className="faq-list">
+            {faqs.map((faq, index) => (
+              <details key={faq.question} open={index === 0}>
+                <summary>{faq.question}</summary>
+                <p>{faq.answer}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        <section className="final-cta" aria-labelledby="final-title">
+          <div>
+            <p className="section-kicker">Next step</p>
+            <h2 id="final-title">Get help understanding your final expense options</h2>
+            <p>
+              Call today to speak with a licensed agent about options that may help
+              your family plan for final expenses.
+            </p>
+          </div>
+          <div className="final-actions">
+            <CallButton />
+            <a className="btn btn-secondary" href="#quote" data-event="quote_start">
+              Request callback
+            </a>
+          </div>
+        </section>
+      </main>
+
+      <StickyCall phoneHref={phoneHref} />
+
+      <footer className="site-footer">
+        <div>
+          <a className="brand footer-brand" href="#top" aria-label="TwoTree Quote home">
+            <span className="brand-mark">
+              <TreeIcon />
+            </span>
+            <span>
+              <strong>TwoTree</strong>
+              <small>Quote</small>
+            </span>
+          </a>
+          <p>
+            TwoTree Quote final-expense landing page system. Replace all agency,
+            carrier, licensing, consent, and availability claims before production.
+          </p>
         </div>
-      </section>
-
-      <footer className="bg-navy-950 px-5 py-8 text-center text-base leading-7 text-slate-300 sm:px-8">
-        <p className="font-semibold text-white">
-          Final expense coverage options explained by phone.
-        </p>
-        <p className="mt-2 font-semibold text-white">{phoneDisplay}</p>
-        <p className="mx-auto mt-4 max-w-4xl">
-          This website provides general information and connects consumers with
-          licensed agent support. Coverage, benefits, premiums, and availability
-          vary by state and individual circumstances. This page does not
-          guarantee coverage or approval.
-        </p>
+        <div>
+          <strong>Compliance notes</strong>
+          <p>
+            This website provides general information and connects consumers with
+            licensed agents. Coverage, benefits, premiums, and availability vary by
+            state and individual circumstances. This page does not guarantee coverage
+            or approval.
+          </p>
+        </div>
+        <div>
+          <strong>Contact</strong>
+          <p>
+            Licensed agent line: <a href={phoneHref}>{phoneDisplay}</a>
+          </p>
+          <p>Hours: Monday-Friday, 8:00 AM-7:00 PM CT</p>
+        </div>
       </footer>
-
-      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-slate-200 bg-white/95 p-3 shadow-[0_-12px_30px_rgba(11,34,61,0.15)] backdrop-blur sm:hidden">
-        <a
-          href={phoneHref}
-          className="flex min-h-16 items-center justify-center rounded-2xl bg-sage-600 px-6 text-center text-xl font-extrabold text-white"
-          aria-label={`Call now at ${phoneDisplay}`}
-        >
-          Call Now: {phoneDisplay}
-        </a>
-      </div>
-    </main>
+    </>
   );
 }

@@ -7,13 +7,14 @@ type CoverageInterest =
   | "Not sure";
 
 type LeadPayload = {
-  firstName: string;
-  lastName: string;
+  fullName: string;
   phone: string;
   email: string;
   state: string;
   age: string;
   coverageInterest: CoverageInterest;
+  contactTime: string;
+  consent: boolean;
 };
 
 const CRM_WEBHOOK_URL = process.env.CRM_WEBHOOK_URL;
@@ -43,7 +44,7 @@ function isCoverageInterest(value: unknown): value is CoverageInterest {
 
 function readStringField(
   payload: Record<string, unknown>,
-  field: keyof Omit<LeadPayload, "coverageInterest">,
+  field: keyof Omit<LeadPayload, "coverageInterest" | "consent">,
 ) {
   const value = payload[field];
   return typeof value === "string" ? value.trim() : "";
@@ -55,8 +56,7 @@ function parseLeadPayload(payload: unknown): LeadPayload | null {
   }
 
   const lead: LeadPayload = {
-    firstName: readStringField(payload, "firstName"),
-    lastName: readStringField(payload, "lastName"),
+    fullName: readStringField(payload, "fullName"),
     phone: readStringField(payload, "phone"),
     email: readStringField(payload, "email"),
     state: readStringField(payload, "state"),
@@ -64,20 +64,21 @@ function parseLeadPayload(payload: unknown): LeadPayload | null {
     coverageInterest: isCoverageInterest(payload.coverageInterest)
       ? payload.coverageInterest
       : "Not sure",
+    contactTime: readStringField(payload, "contactTime"),
+    consent: payload.consent === true,
   };
 
-  const requiredFields: Array<keyof Omit<LeadPayload, "coverageInterest">> = [
-    "firstName",
-    "lastName",
+  const requiredFields: Array<keyof Omit<LeadPayload, "coverageInterest" | "consent">> = [
+    "fullName",
     "phone",
-    "email",
     "state",
     "age",
+    "contactTime",
   ];
 
   const hasMissingField = requiredFields.some((field) => lead[field] === "");
 
-  return hasMissingField ? null : lead;
+  return hasMissingField || !lead.consent ? null : lead;
 }
 
 function hasSmsConfig() {
@@ -101,12 +102,13 @@ function hasCallConfig() {
 function buildLeadSms(lead: LeadPayload) {
   return [
     "New life insurance lead",
-    `${lead.firstName} ${lead.lastName}`,
+    lead.fullName,
     `Phone: ${lead.phone}`,
-    `Email: ${lead.email}`,
+    `Email: ${lead.email || "Not provided"}`,
     `State: ${lead.state}`,
     `Age: ${lead.age}`,
     `Interest: ${lead.coverageInterest}`,
+    `Best time: ${lead.contactTime}`,
   ].join("\n");
 }
 
@@ -122,12 +124,13 @@ function escapeTwiml(value: string) {
 function buildLeadCallTwiml(lead: LeadPayload) {
   const message = [
     "New life insurance lead.",
-    `Name: ${lead.firstName} ${lead.lastName}.`,
+    `Name: ${lead.fullName}.`,
     `Phone number: ${lead.phone}.`,
-    `Email: ${lead.email}.`,
+    `Email: ${lead.email || "Not provided"}.`,
     `State: ${lead.state}.`,
     `Age: ${lead.age}.`,
     `Coverage interest: ${lead.coverageInterest}.`,
+    `Best contact time: ${lead.contactTime}.`,
   ].join(" ");
 
   return `<Response><Say voice="alice">${escapeTwiml(

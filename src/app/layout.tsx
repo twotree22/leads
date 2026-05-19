@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Affordable Final Expense Coverage",
+  title: "TwoTree Quote | Affordable Final Expense Coverage",
   description:
-    "Speak with a licensed agent today about final expense life insurance options.",
+    "Speak with a licensed agent about final expense life insurance options that may help cover funeral, burial, medical, and other end-of-life costs.",
 };
 
 export default function RootLayout({
@@ -13,10 +13,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className="min-h-screen bg-slate-50 font-sans text-navy-950 antialiased">
-        {children}
-      </body>
+    <html lang="en">
+      <body>{children}</body>
     </html>
   );
 }
