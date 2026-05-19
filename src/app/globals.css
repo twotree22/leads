@@ -975,6 +975,19 @@ details p {
   }
 
   .sticky-mobile-cta {
-    display: inline-flex;
+    display: flex;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    justify-content: center;
+    height: calc(72px + env(safe-area-inset-bottom));
+    min-height: 72px;
+    padding: 0 20px env(safe-area-inset-bottom);
+    line-height: 1;
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
+    border-radius: 0;
+    transform: translateY(100%);
   }
 }
