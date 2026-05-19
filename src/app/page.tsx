@@ -349,7 +349,7 @@ export default function Home() {
           <p>
             Licensed agent line: <a href={phoneHref}>{phoneDisplay}</a>
           </p>
-          <p>Hours: Monday-Friday, 8:00 AM-7:00 PM CT</p>
+          <p>Hours: 24/7</p>
         </div>
       </footer>
     </>
